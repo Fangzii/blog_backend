@@ -205,7 +205,7 @@ class MessageBoardViewSet(viewsets.ModelViewSet):
 def view(request):
     print(request.data)
     # 暂时权限登入 后期加表
-    if request.data['name'] == 'fangzicheng' and request.data['password'] == 'dingchenran':
+    if request.data['name'] == 'hahahaha' and request.data['password'] == 'hahahaha':
         return Response({"message": "success"})
 
     return Response({"message": "无访问权限"}, status=status.HTTP_403_FORBIDDEN)
