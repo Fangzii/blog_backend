@@ -12,9 +12,7 @@
         python manage.py migrate
         python manage.py runserver 
 
-####demo (我的博客:joy:)链接:
+####demo (我的博客:joy:):
         
-        [ fang's blog ](http://fangz-rc.work)
-        
-        
+- [ fang's blog ](http://fangz-rc.work)
 
