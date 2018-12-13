@@ -32,7 +32,6 @@ STATIC_ROOT = '/home/blog/static/'
 
 INSTALLED_APPS = [
     'rest_framework',
-    'login',
     'blog',
     'corsheaders',
     'django.contrib.admin',
