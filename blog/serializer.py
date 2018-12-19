@@ -1,6 +1,6 @@
 # coding: utf-8
 from rest_framework import serializers
-from .models import User, Entry, MessageBoard
+from .models import User, Entry, MessageBoard, ReplySummary
 
 class UserSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
@@ -36,16 +36,32 @@ class EntryCreateSerializer(serializers.ModelSerializer):
         fields = ('id','title','created_at','status','author',)
 
 
+class ReplySummarySerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+    operator = UserSafeSerializer(many=False, read_only=False)
+
+    class Meta:
+        model = ReplySummary
+        fields = ('id', 'body', 'created_at', 'operator')
+
+class ReplySummaryCreateSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+
+    class Meta:
+        model = ReplySummary
+        fields = ('id', 'body', 'created_at', 'operator')
+
 class MessageBoardSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
     operator = UserSafeSerializer(many=False, read_only=False)
+    reply = ReplySummarySerializer(many=True)
+
     class Meta:
         model = MessageBoard
-        fields = ('id', 'body', 'created_at', 'operator')
-
+        fields = ('id', 'body', 'created_at', 'operator','reply')
 
 class MessageBoardCreateSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
     class Meta:
         model = MessageBoard
-        fields = ('id', 'body', 'created_at', 'operator',)
+        fields = ('id', 'body', 'created_at', 'operator','reply')

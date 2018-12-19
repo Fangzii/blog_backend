@@ -6,6 +6,9 @@ class User(models.Model):
     name = models.CharField(max_length=32)
     mail = models.EmailField()
 
+    def __str__(self):
+        return self.name
+
 class Entry(models.Model):
     STATUS_DRAFT = "draft"
     STATUS_PUBLIC = "public"
@@ -20,6 +23,9 @@ class Entry(models.Model):
     status = models.CharField(choices=STATUS_SET, default=STATUS_DRAFT, max_length=8)
     author = models.ForeignKey(User, related_name='entries',on_delete=models.CASCADE)
     # view = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.title
 
     def increase_views(self):
         self.view += 1
@@ -40,6 +46,9 @@ class History(models.Model):
     access_tools = models.CharField(max_length=128, null=True,)
     JSON = models.TextField(null=True,)
     action = models.TextField(null=True,)
+
+    def __str__(self):
+        return self.ip
 
     def get_ip(self):
         pass
@@ -69,15 +78,34 @@ class Pond_IP(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='上次来访时间')
     visit_number = models.IntegerField(default=1, null=True, verbose_name='来访次数', editable=False)
 
+    def __str__(self):
+        return self.ip
 
-class MessageBoard(models.Model):
+class ReplySummary(models.Model):
 
-    operator = models.ForeignKey(User, related_name='operator',on_delete=models.CASCADE)
+    operator = models.ForeignKey(User, related_name='operatorReply',on_delete=models.CASCADE)
     body = models.TextField()
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return '%s %s' % (self.operator.name, self.created_at)
+
+class MessageBoard(models.Model):
+
+    operator = models.ForeignKey(User, related_name='operator', on_delete=models.CASCADE)
+    body = models.TextField()
+    reply = models.ManyToManyField(ReplySummary, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return '%s %s' % (self.operator.name, self.created_at)
+
+    def get_reply(self):
+        print('-------------')
+        print(self.reply.all())
+        return "\n".join([p.body for p in self.reply.all()])
 
 class BlackList(models.Model):
 
@@ -86,3 +114,5 @@ class BlackList(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='上次拦截时间')
     intercept_number = models.IntegerField(default=0, null=True, verbose_name='拦截次数', editable=False)
 
+    def __str__(self):
+        return self.ip.ip

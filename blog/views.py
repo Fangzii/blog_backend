@@ -6,7 +6,7 @@ from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import response
-from .models import User, Entry, History, Pond_IP, MessageBoard, BlackList
+from .models import User, Entry, History, Pond_IP, MessageBoard, BlackList, ReplySummary
 from .serializer import UserSerializer, EntrySerializer, EntryListSerializer, EntryCreateSerializer, MessageBoardSerializer, MessageBoardCreateSerializer
 
 # Create your views here
@@ -161,6 +161,72 @@ class MessageBoardViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+
+        print(request.data)
+
+        id = request.parser_context['kwargs']['pk']
+        print(MessageBoardCreateSerializer)
+
+        try:
+            obj = User.objects.get(name=request.data['reply']['operator']['name'])
+        except Exception as e:
+            print(e)
+            obj = {}
+
+        if obj:
+            if obj.mail == request.data['reply']['operator']['mail']:
+                reply = ReplySummary(
+                    operator=obj,
+                    body=request.data['reply']['body']
+                )
+                reply.save()
+                message = MessageBoard.objects.get(id=id)
+                print('------------')
+                print(message)
+                message.reply.add(reply)
+                message.save()
+
+            else:
+                return Response({"message": "用户名重复"}, status=status.HTTP_402_PAYMENT_REQUIRED)
+        else:
+            a = User(
+                name=request.data['reply']['operator']['name'],
+                mail=request.data['reply']['operator']['mail']
+            )
+            a.save()
+            reply = ReplySummary(
+                operator=a,
+                body=request.data['reply']['body']
+            )
+            reply.save()
+            message = MessageBoard.objects.get(id=id)
+            message.reply.add(reply)
+            message.save()
+            # data = dict(
+            #     reply=[
+            #         dict(
+            #             operator=a.id,
+            #             body=request.data['reply']['body']
+            #         )
+            #     ]
+            # )
+        # MessageBoardCreateSerializer.Meta.model
+        # serializer = self.get_serializer(instance, data=message, partial=partial)
+        # self.serializer_class = MessageBoardCreateSerializer
+        # serializer.is_valid(raise_exception=True)
+        # self.perform_update(serializer)
+
+
+        if getattr(instance, '_prefetched_objects_cache', None):
+            # If 'prefetch_related' has been applied to a queryset, we need to
+            # forcibly invalidate the prefetch cache on the instance.
+            instance._prefetched_objects_cache = {}
+
+        return Response(message)
 
     # def list(self, request, *args, **kwargs):
     #     if self.watchDog(request):

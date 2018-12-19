@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import User, Entry, History, Pond_IP, BlackList
+from .models import User, Entry, History, Pond_IP, BlackList, MessageBoard, ReplySummary
+
 
 # Register your models here.
 @admin.register(User)
@@ -59,8 +60,27 @@ class HistoryAdmin(admin.ModelAdmin):
     sync_location.short_description = '同步位置'
 
 
+@admin.register(MessageBoard)
+class PondAdmin(admin.ModelAdmin):
+    list_display = [
+        "operator",
+        "body",
+        "get_reply",
+        "created_at",
+        "updated_at"
+    ]
 
 
+
+
+@admin.register(ReplySummary)
+class PondAdmin(admin.ModelAdmin):
+    list_display = [
+        "operator",
+        "body",
+        "created_at",
+        "updated_at"
+    ]
 
 admin.site.site_header = "fang's blog 管理"
 admin.site.index_title = '管理主页'
