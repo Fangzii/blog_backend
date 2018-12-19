@@ -185,8 +185,6 @@ class MessageBoardViewSet(viewsets.ModelViewSet):
                 )
                 reply.save()
                 message = MessageBoard.objects.get(id=id)
-                print('------------')
-                print(message)
                 message.reply.add(reply)
                 message.save()
 
@@ -206,19 +204,7 @@ class MessageBoardViewSet(viewsets.ModelViewSet):
             message = MessageBoard.objects.get(id=id)
             message.reply.add(reply)
             message.save()
-            # data = dict(
-            #     reply=[
-            #         dict(
-            #             operator=a.id,
-            #             body=request.data['reply']['body']
-            #         )
-            #     ]
-            # )
-        # MessageBoardCreateSerializer.Meta.model
-        # serializer = self.get_serializer(instance, data=message, partial=partial)
-        # self.serializer_class = MessageBoardCreateSerializer
-        # serializer.is_valid(raise_exception=True)
-        # self.perform_update(serializer)
+
 
 
         if getattr(instance, '_prefetched_objects_cache', None):
