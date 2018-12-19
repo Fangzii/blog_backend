@@ -6,13 +6,13 @@
 
 用的是 Python 3.7.1
 
-#####运行命令:
+##### 运行命令:
 
         pip install -r requirements.txt
         python manage.py migrate
         python manage.py runserver 
 
-####demo (我的博客:joy:):
+#### demo (我的博客:joy:):
         
 - [ fang's blog ](http://fangz-rc.work)
 
