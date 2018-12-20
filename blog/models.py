@@ -116,3 +116,14 @@ class BlackList(models.Model):
 
     def __str__(self):
         return self.ip.ip
+
+
+class AdminInformation(models.Model):
+
+    name = models.CharField(max_length=128, primary_key=True, blank=False)
+    password = models.CharField(max_length=50)
+    mail = models.EmailField()
+    git = models.CharField(max_length=128, null=True)
+    url = models.CharField(max_length=128, null=True)
+    weChat = models.CharField(max_length=128, null=True)
+    location = models.CharField(max_length=128, null=True)

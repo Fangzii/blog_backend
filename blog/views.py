@@ -186,7 +186,6 @@ class MessageBoardViewSet(viewsets.ModelViewSet):
                 reply.save()
                 message = MessageBoard.objects.get(id=id)
                 message.reply.add(reply)
-                message.save()
 
             else:
                 return Response({"message": "用户名重复"}, status=status.HTTP_402_PAYMENT_REQUIRED)
@@ -203,7 +202,6 @@ class MessageBoardViewSet(viewsets.ModelViewSet):
             reply.save()
             message = MessageBoard.objects.get(id=id)
             message.reply.add(reply)
-            message.save()
 
 
 
