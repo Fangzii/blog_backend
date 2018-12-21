@@ -103,8 +103,6 @@ class MessageBoard(models.Model):
         return '%s %s' % (self.operator.name, self.created_at)
 
     def get_reply(self):
-        print('-------------')
-        print(self.reply.all())
         return "\n".join([p.body for p in self.reply.all()])
 
 class BlackList(models.Model):
