@@ -2,12 +2,14 @@ from django.db import models
 
 # Create your models here.
 
+
 class User(models.Model):
     name = models.CharField(max_length=32)
     mail = models.EmailField()
 
     def __str__(self):
         return self.name
+
 
 class Entry(models.Model):
     STATUS_DRAFT = "draft"
@@ -71,6 +73,7 @@ class History(models.Model):
         else:
             print("ERRO! ip: %s" % self.ip)
 
+
 class Pond_IP(models.Model):
 
     ip = models.CharField(max_length=128, primary_key=True)
@@ -80,6 +83,7 @@ class Pond_IP(models.Model):
 
     def __str__(self):
         return self.ip
+
 
 class ReplySummary(models.Model):
 
@@ -91,11 +95,12 @@ class ReplySummary(models.Model):
     def __str__(self):
         return '%s %s' % (self.operator.name, self.created_at)
 
+
 class MessageBoard(models.Model):
 
     operator = models.ForeignKey(User, related_name='operator', on_delete=models.CASCADE)
     body = models.TextField()
-    reply = models.ManyToManyField(ReplySummary, blank=False)
+    reply = models.ManyToManyField(ReplySummary, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -104,6 +109,7 @@ class MessageBoard(models.Model):
 
     def get_reply(self):
         return "\n".join([p.body for p in self.reply.all()])
+
 
 class BlackList(models.Model):
 

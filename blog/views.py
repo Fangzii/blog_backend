@@ -176,7 +176,6 @@ class MessageBoardViewSet(viewsets.ModelViewSet):
         except Exception as e:
             print(e)
             obj = {}
-
         if obj:
             if obj.mail == request.data['reply']['operator']['mail']:
                 reply = ReplySummary(
@@ -202,15 +201,12 @@ class MessageBoardViewSet(viewsets.ModelViewSet):
             reply.save()
             message = MessageBoard.objects.get(id=id)
             message.reply.add(reply)
-
-
-
         if getattr(instance, '_prefetched_objects_cache', None):
             # If 'prefetch_related' has been applied to a queryset, we need to
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
 
-        return Response(message)
+        return Response({"message": "success"})
 
     # def list(self, request, *args, **kwargs):
     #     if self.watchDog(request):
