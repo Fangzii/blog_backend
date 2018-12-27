@@ -33,7 +33,7 @@ class EntryCreateSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
     class Meta:
         model = Entry
-        fields = ('id','title','created_at','status','author',)
+        fields = ('id','title','created_at','status','author','body')
 
 
 class ReplySummarySerializer(serializers.ModelSerializer):
