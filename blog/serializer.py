@@ -18,22 +18,27 @@ class EntrySerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
     author = UserSafeSerializer(many=False, read_only=False)
     # author = serializers.ReadOnlyField(source='author.name')
+
     class Meta:
         model = Entry
-        fields = ('id','title','body','created_at','status','author',)
+        fields = ('id','title','body','created_at','status','author','views','synopsis')
+
 
 class EntryListSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
     author = UserSafeSerializer(many=False, read_only=False)
+
     class Meta:
         model = Entry
-        fields = ('id','title','created_at','status','author',)
+        fields = ('id','title','created_at','status','author', 'views','synopsis')
+
 
 class EntryCreateSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
+
     class Meta:
         model = Entry
-        fields = ('id','title','created_at','status','author','body')
+        fields = ('id','title','created_at','status','author','body','synopsis')
 
 
 class ReplySummarySerializer(serializers.ModelSerializer):

@@ -20,17 +20,18 @@ class Entry(models.Model):
     )
     title = models.CharField(max_length=128)
     body = models.TextField()
+    synopsis = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(choices=STATUS_SET, default=STATUS_DRAFT, max_length=8)
     author = models.ForeignKey(User, related_name='entries',on_delete=models.CASCADE)
-    # view = models.PositiveIntegerField(default=0)
+    views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
 
     def increase_views(self):
-        self.view += 1
+        self.views += 1
         self.save(update_fields=['views'])
 
 

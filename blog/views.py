@@ -34,7 +34,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 class EntryViewSet(viewsets.ModelViewSet):
-    queryset = Entry.objects.all()
+    queryset = Entry.objects.all().order_by('-id')
     serializer_class = EntrySerializer
 
     def list(self, request, *args, **kwargs):
@@ -59,10 +59,11 @@ class EntryViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         if request.data:
             data = dict(
-                author = request.data['author']['id'],
-                status =request.data['status'],
+                author=request.data['author']['id'],
+                status=request.data['status'],
                 title=request.data['title'],
                 body=request.data['body'],
+                synopsis=request.data['synopsis']
             )
         self.serializer_class = EntryCreateSerializer
         serializer = self.get_serializer(data=data)
@@ -70,6 +71,13 @@ class EntryViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def retrieve(self, request, *args, **kwargs):
+
+        instance = self.get_object()
+        instance.increase_views()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
     def watchDog(self, request):
         # 增加访问历史
@@ -251,7 +259,7 @@ class MessageBoardViewSet(viewsets.ModelViewSet):
 def view(request):
     print(request.data)
     # 暂时权限登入 后期加表
-    if request.data['name'] == 'hahahaha' and request.data['password'] == 'hahahaha':
+    if request.data['name'] == 'fangzicheng' and request.data['password'] == 'dingchenran':
         return Response({"message": "success"})
 
     return Response({"message": "无访问权限"}, status=status.HTTP_403_FORBIDDEN)
