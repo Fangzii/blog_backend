@@ -9,7 +9,7 @@ Function views
 Class-based views
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
+Including another URLconft
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
@@ -18,10 +18,14 @@ from django.contrib import admin
 from blog.urls import router as blog_router
 from blog import views
 
+from django.conf.urls.static import static
+from django_rest_framework import settings
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #blog url
     url(r'^api/v1/', include(blog_router.urls)),
     url(r'^api/v1/test/',views.view),
-]
+    url(r'^export/xls', views.export_users_xls,),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

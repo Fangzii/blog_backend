@@ -33,6 +33,7 @@ STATIC_ROOT = '/home/blog/static/'
 INSTALLED_APPS = [
     'rest_framework',
     'blog',
+    'emotions',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -103,6 +104,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -124,3 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = 'media1001/'
+
+MEDIA_URL = '/admin/webhost_media/'
