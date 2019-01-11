@@ -5,6 +5,13 @@ from .models import File, Image, Emotions_work
 
 @admin.register(Emotions_work)
 class EmotionsWorkAdmin(admin.ModelAdmin):
+    list_display = [
+        'name',
+        'get_file_url',
+        'get_image_url',
+        'created_at',
+        'updated_at',
+    ]
     filter_horizontal = ('file', 'image')
 
 
