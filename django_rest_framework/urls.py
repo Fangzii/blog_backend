@@ -23,6 +23,7 @@ from django_rest_framework import settings
 
 
 urlpatterns = [
+    url(r'^jet/', include('jet.urls', 'jet')),
     url(r'^admin/', admin.site.urls),
     #blog url
     url(r'^api/v1/', include(blog_router.urls)),

@@ -31,6 +31,7 @@ STATIC_ROOT = '/home/blog/static/'
 # Application definition
 
 INSTALLED_APPS = [
+    'jet',
     'rest_framework',
     'blog',
     'emotions',
@@ -68,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },

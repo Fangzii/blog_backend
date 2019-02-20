@@ -82,5 +82,7 @@ class PondAdmin(admin.ModelAdmin):
         "updated_at"
     ]
 
+
+
 admin.site.site_header = "fang's blog 管理"
 admin.site.index_title = '管理主页'
