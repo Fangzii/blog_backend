@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'blog',
     'emotions',
+    'weChart',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -133,6 +134,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = 'media1001/'
+MEDIA_ROOT = 'fangz-rc/'
 
-MEDIA_URL = '/admin/webhost_media/'
+MEDIA_URL = '/admin/fangz_media/'
