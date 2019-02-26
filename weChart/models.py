@@ -36,7 +36,7 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '%s - %s' % (self.content, self.created_at)
+        return '%s - %s 月 %s日' % (self.content, self.created_at.month, self.created_at.day)
 
     class Meta:
         verbose_name = "文章"
@@ -87,7 +87,7 @@ class Palette(models.Model):
 class User(models.Model):
 
     name = models.CharField(max_length=32)
-    friends = models.ManyToManyField('self', blank=True,)
+    friends = models.ManyToManyField('self', blank=True, related_name="friends_")
     ownInventory = models.OneToOneField(Inventory, on_delete=models.CASCADE, blank=True, verbose_name="朋友圈")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
