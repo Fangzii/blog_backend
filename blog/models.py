@@ -1,5 +1,5 @@
 from django.db import models
-
+from ckeditor.fields import RichTextField
 # Create your models here.
 
 
@@ -19,8 +19,8 @@ class Entry(models.Model):
             (STATUS_PUBLIC,"公开"),
     )
     title = models.CharField(max_length=128)
-    body = models.TextField()
-    synopsis = models.TextField(blank=True)
+    body = RichTextField()
+    synopsis = models.CharField(max_length=128)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(choices=STATUS_SET, default=STATUS_DRAFT, max_length=8)
