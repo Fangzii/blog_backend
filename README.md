@@ -36,7 +36,7 @@ python manage.py runserver # 启动服务， 可在 http://localhost:8000 访问
 - [ django-ckeditor ](https://github.com/django-ckeditor/django-ckeditor) 富文本.
 - [ django-rest-framework ](https://github.com/encode/django-rest-framework) Web APIs for Django.
 
-#### demo (我的博客):
+#### Demo (我的博客):
         
 - [ fang's blog ](http://fangz-rc.work)
 - [ blog 后台 ](http://fangz-rc.work/admin) 游客账号 `guest_test` 密码 `guest123`
