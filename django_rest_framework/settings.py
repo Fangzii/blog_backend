@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'cj*fhnq9nfun&)5h(sc7ira&mrhh@j%+%#x+i@#iw=czw-u!o2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -214,9 +214,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = '/var/www/html/static/fangz-rc'
+MEDIA_ROOT = 'fangz-rc/'
 
-MEDIA_URL = '/static/fangz_media/'
+MEDIA_URL = '/admin/fangz_media/'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
