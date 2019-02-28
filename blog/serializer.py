@@ -1,18 +1,32 @@
 # coding: utf-8
 from rest_framework import serializers
-from .models import User, Entry, MessageBoard, ReplySummary
+from .models import User, Entry, MessageBoard, ReplySummary, UserInformatization
+
+
+class UserInformatizationSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+
+    class Meta:
+        model = UserInformatization
+        fields = '__all__'
+
 
 class UserSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
+    informatization = UserInformatizationSerializer(many=False)
+
     class Meta:
         model = User
-        fields = ('id','name','mail')
+        fields = ('id', 'name', 'informatization')
+
 
 # 不显示用户邮箱来确保用户隐私
 class UserSafeSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = User
-        fields = ('id','name')
+        fields = ('id', 'name',)
+
 
 class EntrySerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()

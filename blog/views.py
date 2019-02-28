@@ -9,10 +9,18 @@ from rest_framework import response
 from .models import User, Entry, History, Pond_IP, MessageBoard, BlackList, ReplySummary
 from .serializer import UserSerializer, EntrySerializer, EntryListSerializer, EntryCreateSerializer, MessageBoardSerializer, MessageBoardCreateSerializer
 
+class UserFilter(django_filters.rest_framework.FilterSet):
+
+    class Meta:
+        model = User
+        fields = ['name']
+
 # Create your views here
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_class = UserFilter
 
     def create(self, request, *args, **kwargs):
         if request.data:
@@ -21,8 +29,8 @@ class UserViewSet(viewsets.ModelViewSet):
                 if obj.name == request.data['name']:
                     return Response({"message": '名字已登记'}, status=status.HTTP_401_UNAUTHORIZED)
             data = dict(
-                author = request.data['author']['id'],
-                status =request.data['status'],
+                author=request.data['author']['id'],
+                status=request.data['status'],
                 title=request.data['title'],
                 body=request.data['body'],
             )
@@ -255,12 +263,12 @@ class MessageBoardViewSet(viewsets.ModelViewSet):
                 action='内容: %s 中间人: %s 邮箱: %s' % (request.data['body'],request.data['operator']['name'],request.data['operator']['mail'])
             )
 
-
+# 已废弃
 @api_view(['POST'])
 def view(request):
     print(request.data)
     # 暂时权限登入 后期加表
-    if request.data['name'] == 'fangzicheng' and request.data['password'] == 'dingchenran':
+    if request.data['name'] == 'fangzicheng' and request.data['password'] == 'xxxxxxxxx':
         return Response({"message": "success"})
 
     return Response({"message": "无访问权限"}, status=status.HTTP_403_FORBIDDEN)
