@@ -6,6 +6,7 @@ from ckeditor.fields import RichTextField
 class UserInformatization(models.Model):
 
     show_name = models.CharField(max_length=32, null=True, blank=True)
+    image_url = models.ImageField(verbose_name="图片", upload_to='userImages', null=True, blank=True)
     signature = models.CharField(max_length=128, null=True, blank=True)
     location = models.CharField(max_length=32, null=True, blank=True)
     weChat = models.CharField(max_length=32, null=True, blank=True)
