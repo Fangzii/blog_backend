@@ -214,9 +214,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = '/static/fangz-rc/'
+MEDIA_ROOT = '/var/www/html/static/fangz-rc'
 
-MEDIA_URL = '/admin/fangz_media/'
+MEDIA_URL = '/static/fangz_media/'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
