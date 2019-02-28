@@ -94,6 +94,7 @@ DATABASES = {
         'NAME': 'fang_blog_db',
         'PORT': 5432,
         'HOST': '127.0.0.1'
+        # 'HOST': '139.162.109.10'
     }
 }
 

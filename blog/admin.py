@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Entry, History, Pond_IP, BlackList, MessageBoard, ReplySummary
+from .models import User, Entry, History, Pond_IP, BlackList, MessageBoard, ReplySummary, UserInformatization
 
 
 # Register your models here.
@@ -10,9 +10,16 @@ class UserAdmin(admin.ModelAdmin):
         'mail'
     ]
 
+
+@admin.register(UserInformatization)
+class UserInformatization(admin.ModelAdmin):
+    pass
+
+
 @admin.register(Entry)
 class EntryAdmin(admin.ModelAdmin):
     pass
+
 
 @admin.register(BlackList)
 class BlackListAdmin(admin.ModelAdmin):

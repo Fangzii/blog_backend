@@ -3,9 +3,23 @@ from ckeditor.fields import RichTextField
 # Create your models here.
 
 
+class UserInformatization(models.Model):
+
+    show_name = models.CharField(max_length=32, null=True, blank=True)
+    signature = models.CharField(max_length=128, null=True, blank=True)
+    location = models.CharField(max_length=32, null=True, blank=True)
+    weChat = models.CharField(max_length=32, null=True, blank=True)
+    github_url = models.CharField(max_length=32, null=True, blank=True)
+    link = models.CharField(max_length=32, null=True, blank=True)
+
+    def __str__(self):
+        return self.show_name
+
+
 class User(models.Model):
     name = models.CharField(max_length=32)
     mail = models.EmailField()
+    informatization = models.OneToOneField(UserInformatization, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -24,7 +38,7 @@ class Entry(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(choices=STATUS_SET, default=STATUS_DRAFT, max_length=8)
-    author = models.ForeignKey(User, related_name='entries',on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name='entries', on_delete=models.CASCADE)
     views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
