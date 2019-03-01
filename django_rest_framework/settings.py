@@ -89,9 +89,9 @@ DATABASES = {
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 	'ENGINE': 'django.db.backends.postgresql',
-        'USER': 'fangzi',
-        'PASSWORD': 'fangzi424',
-        'NAME': 'fang_blog_db',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'NAME': '',
         'PORT': 5432,
         'HOST': '127.0.0.1'
         # 'HOST': '139.162.109.10'
@@ -220,3 +220,18 @@ MEDIA_URL = '/admin/fangz_media/'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
+# 阿里云配置
+DEFAULT_FILE_STORAGE = ''
+
+# 配置OSS信息
+ACCESS_KEY_ID = ""
+ACCESS_KEY_SECRET = ""
+END_POINT = ""  # OSS存储节点
+BUCKET_NAME = ""
+BUCKET_ACL_TYPE = ""  # private, public-read, public-read-write
+
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
