@@ -20,6 +20,7 @@ from blog import views
 
 from django.conf.urls.static import static
 from django_rest_framework import settings
+from rest_framework_jwt.views import obtain_jwt_token
 
 
 urlpatterns = [
@@ -30,5 +31,5 @@ urlpatterns = [
     url(r'^api/v1/test/',views.view),
     url(r'^export/xls', views.export_users_xls,),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
-
+    url(r'^api-token-auth/', obtain_jwt_token),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
