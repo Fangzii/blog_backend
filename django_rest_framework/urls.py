@@ -31,5 +31,5 @@ urlpatterns = [
     url(r'^api/v1/test/',views.view),
     url(r'^export/xls', views.export_users_xls,),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
-    url(r'^api-token-auth/', obtain_jwt_token),
+    url(r'^api/v1/api-token-auth/', obtain_jwt_token),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
