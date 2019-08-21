@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  api:
+    build: .
+    networks:
+      - blog
+    restart: always
+    volumes:
+      - ./config/local_settings.py:/code/config/local_settings.py
+      - static:/static
+      - /data/cms/media:/media
+
+  db:
+    image: postgres:11
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_DB=blog_db
+    volumes:
+      - /data/pgdata/blog:/var/lib/postgresql/data/pgdata
+    networks:
+      - blog
+    restart: always
+
+
+networks:
+  blog:
+
+
+volumes:
+  static:
