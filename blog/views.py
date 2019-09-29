@@ -15,6 +15,12 @@ class UserFilter(django_filters.rest_framework.FilterSet):
         model = User
         fields = ['name']
 
+class EntryFilter(django_filters.rest_framework.FilterSet):
+
+    class Meta:
+        model = Entry
+        fields = ['title']
+
 # Create your views here
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
