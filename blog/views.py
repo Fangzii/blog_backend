@@ -50,6 +50,8 @@ class UserViewSet(viewsets.ModelViewSet):
 class EntryViewSet(viewsets.ModelViewSet):
     queryset = Entry.objects.all().order_by('-id')
     serializer_class = EntrySerializer
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_class = EntryFilter
 
     def list(self, request, *args, **kwargs):
         self.watchDog(request)
