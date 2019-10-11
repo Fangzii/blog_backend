@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+
 # Create your models here.
 
 
@@ -75,6 +76,10 @@ class History(models.Model):
         import requests
         # 淘宝IP地址库接口
         r = requests.get('http://ip.taobao.com/service/getIpInfo.php?ip=%s' % self.ip)
+        print('--------------------1')
+        print(r)
+        print('--------------------2')
+        print(r.json())
         if r.json()['code'] == 0:
             i = r.json()['data']
 
