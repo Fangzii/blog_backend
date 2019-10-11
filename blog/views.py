@@ -16,10 +16,14 @@ class UserFilter(django_filters.rest_framework.FilterSet):
         fields = ['name']
 
 class EntryFilter(django_filters.rest_framework.FilterSet):
+    search = django_filters.CharFilter(field_name='title', lookup_expr='contains', method="filter_search")
 
     class Meta:
         model = Entry
         fields = ['title']
+
+    def filter_search(self, queryset, name, value):
+        return queryset.filter(title__contains=value) | queryset.filter(body__contains=value)
 
 # Create your views here
 class UserViewSet(viewsets.ModelViewSet):
