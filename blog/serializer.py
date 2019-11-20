@@ -68,7 +68,7 @@ class ReplySummaryCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ReplySummary
-        fields = ('id', 'body', 'created_at', 'operator')
+        fields = ('id', 'body', 'created_at', 'operator',)
 
 class MessageBoardSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
@@ -77,7 +77,7 @@ class MessageBoardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MessageBoard
-        fields = ('id', 'body', 'created_at', 'operator','reply')
+        fields = ('id', 'body', 'created_at', 'operator','reply',)
 
 class MessageBoardCreateSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()

@@ -120,6 +120,7 @@ class ReplySummary(models.Model):
 class MessageBoard(models.Model):
 
     operator = models.ForeignKey(User, related_name='operator', on_delete=models.CASCADE)
+    entry = models.ForeignKey(Entry, related_name='entry', on_delete=models.CASCADE)
     body = models.TextField()
     reply = models.ManyToManyField(ReplySummary, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

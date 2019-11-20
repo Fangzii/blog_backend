@@ -6,6 +6,9 @@ from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import response
+from django.core import serializers
+import json
+from django.http import HttpResponse,JsonResponse
 from .models import User, Entry, History, Pond_IP, MessageBoard, BlackList, ReplySummary
 from .serializer import UserSerializer, EntrySerializer, EntryListSerializer, EntryCreateSerializer, MessageBoardSerializer, MessageBoardCreateSerializer
 
@@ -136,6 +139,30 @@ class EntryViewSet(viewsets.ModelViewSet):
             black_ip.save()
             return True
 
+    @detail_route(methods=['get'], url_name='message')
+    def message(self, request, pk=None):
+        self.serializer_class = MessageBoardSerializer
+        serializer = self.get_serializer(MessageBoard.objects.filter(entry_id=pk), many=True)
+        return Response(serializer.data)
+
+    @detail_route(methods=['post'], url_name='set_message')
+    def set_message(self, request, pk=None):
+        # 重名处理
+        try:
+            a = User.objects.get(name=request.data['operator']['name'])
+        except User.DoesNotExist:
+            a = User(
+                name=request.data['operator']['name'],
+                mail=request.data['operator']['mail']
+            )
+            a.save()
+
+        MessageBoard(
+            operator=a,
+            body=request.data['body'],
+            entry=Entry.objects.get(id=pk)
+        ).save()
+        return Response({'success': 'true'})
 
 class MessageBoardViewSet(viewsets.ModelViewSet):
     queryset = MessageBoard.objects.all().order_by('-id')
