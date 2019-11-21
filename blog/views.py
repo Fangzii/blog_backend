@@ -142,7 +142,7 @@ class EntryViewSet(viewsets.ModelViewSet):
     @detail_route(methods=['get'], url_name='message')
     def message(self, request, pk=None):
         self.serializer_class = MessageBoardSerializer
-        serializer = self.get_serializer(MessageBoard.objects.filter(entry_id=pk), many=True)
+        serializer = self.get_serializer(MessageBoard.objects.filter(entry_id=pk).order_by('-id'), many=True)
         return Response(serializer.data)
 
     @detail_route(methods=['post'], url_name='set_message')
