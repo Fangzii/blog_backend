@@ -37,6 +37,7 @@ class AttributeSerializer(serializers.ModelSerializer):
 class EntrySerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
     author = UserSafeSerializer(many=False, read_only=False)
+    attribute = AttributeSerializer(many=True, read_only=False)
     # author = serializers.ReadOnlyField(source='author.name')
 
     class Meta:
