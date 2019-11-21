@@ -1,6 +1,6 @@
 # coding: utf-8
 from rest_framework import serializers
-from .models import User, Entry, MessageBoard, ReplySummary, UserInformatization
+from .models import User, Entry, MessageBoard, ReplySummary, UserInformatization, Attribute
 
 
 class UserInformatizationSerializer(serializers.ModelSerializer):
@@ -27,6 +27,12 @@ class UserSafeSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'name',)
 
+class AttributeSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+
+    class Meta:
+        model = Attribute
+        fields = ('id', 'title', 'color')
 
 class EntrySerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
@@ -35,16 +41,17 @@ class EntrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Entry
-        fields = ('id','title','body','created_at','status','author','views','synopsis')
+        fields = ('id','title','body','created_at','status','author','views','synopsis', 'attribute')
 
 
 class EntryListSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
     author = UserSafeSerializer(many=False, read_only=False)
+    attribute = AttributeSerializer(many=True, read_only=False)
 
     class Meta:
         model = Entry
-        fields = ('id','title','created_at','status','author', 'views','synopsis')
+        fields = ('id','title','created_at','status','author', 'views','synopsis', 'attribute')
 
 
 class EntryCreateSerializer(serializers.ModelSerializer):

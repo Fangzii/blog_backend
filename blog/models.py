@@ -26,6 +26,14 @@ class User(models.Model):
     def __str__(self):
         return self.name
 
+class Attribute(models.Model):
+    title = models.CharField(max_length=128, primary_key=True, blank=False)
+    color = models.CharField(max_length=128,)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
 
 class Entry(models.Model):
     STATUS_DRAFT = "draft"
@@ -42,6 +50,8 @@ class Entry(models.Model):
     status = models.CharField(choices=STATUS_SET, default=STATUS_DRAFT, max_length=8)
     author = models.ForeignKey(User, related_name='entries', on_delete=models.CASCADE)
     views = models.PositiveIntegerField(default=0)
+    attribute = models.ManyToManyField(Attribute ,null = True)
+
 
     def __str__(self):
         return self.title
@@ -156,3 +166,4 @@ class AdminInformation(models.Model):
 
     def __str__(self):
         return self.name
+

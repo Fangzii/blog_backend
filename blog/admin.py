@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import User, Entry, History, Pond_IP, BlackList, MessageBoard, ReplySummary, UserInformatization
+from .models import User, Entry, History, Pond_IP, BlackList, MessageBoard, ReplySummary, UserInformatization, Attribute
+
 
 
 # Register your models here.
@@ -9,6 +10,15 @@ class UserAdmin(admin.ModelAdmin):
         'name',
         'mail'
     ]
+
+@admin.register(Attribute)
+class AttributeAdmin(admin.ModelAdmin):
+    list_display = [
+        'title',
+        'color'
+    ]
+
+
 
 
 @admin.register(UserInformatization)
@@ -88,7 +98,6 @@ class PondAdmin(admin.ModelAdmin):
         "created_at",
         "updated_at"
     ]
-
 
 
 admin.site.site_header = "fang's blog 管理"
