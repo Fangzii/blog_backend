@@ -9,7 +9,7 @@ from rest_framework import response
 from django.core import serializers
 import json
 from django.http import HttpResponse,JsonResponse
-from .models import User, Entry, History, Pond_IP, MessageBoard, BlackList, ReplySummary
+from .models import User, Entry, History, Pond_IP, MessageBoard, BlackList, ReplySummary, Attribute
 from .serializer import UserSerializer, EntrySerializer, EntryListSerializer, EntryCreateSerializer, MessageBoardSerializer, MessageBoardCreateSerializer
 
 class UserFilter(django_filters.rest_framework.FilterSet):
@@ -302,15 +302,19 @@ class MessageBoardViewSet(viewsets.ModelViewSet):
                 action='内容: %s 中间人: %s 邮箱: %s' % (request.data['body'],request.data['operator']['name'],request.data['operator']['mail'])
             )
 
-# 已废弃
-@api_view(['POST'])
+# 获取属性统计
+@api_view(['GET'])
 def view(request):
-    print(request.data)
-    # 暂时权限登入 后期加表
-    if request.data['name'] == 'fangzicheng' and request.data['password'] == 'xxxxxxxxx':
-        return Response({"message": "success"})
+    list = []
+    for e in Attribute.objects.all():
+        a = Entry.objects.filter(attribute=e)
+        list.append({
+            'num': len(a),
+            'title': e.title,
+            'color': e.color
+        })
 
-    return Response({"message": "无访问权限"}, status=status.HTTP_403_FORBIDDEN)
+    return Response({"rankings": list})
 
 
 import xlwt

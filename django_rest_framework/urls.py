@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #blog url
     url(r'^api/v1/', include(blog_router.urls)),
-    url(r'^api/v1/test/',views.view),
+    url(r'^api/v1/attribute_rankings/',views.view),
     url(r'^export/xls', views.export_users_xls,),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^api/v1/api-token-auth/', obtain_jwt_token),
