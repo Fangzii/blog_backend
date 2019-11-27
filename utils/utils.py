@@ -18,7 +18,7 @@ def send_email(to, data, header):
     # 发件人收件人信息格式化 ，可防空
     lam_format_addr = lambda name, addr: formataddr((Header(name, 'utf-8').encode(), addr))
     # 传入昵称和邮件地址
-    msg['From'] = lam_format_addr("Fang's bolg", from_addr) # 腾讯邮箱可略
+    msg['From'] = lam_format_addr("Fang's blog", from_addr) # 腾讯邮箱可略
     msg['To'] = lam_format_addr('', to_addr) # 腾讯邮箱可略
 
     # 邮件标题
