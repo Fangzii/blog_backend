@@ -24,6 +24,9 @@ python manage.py createsuperuser # 创建超级用户
 
 python manage.py runserver # 启动服务， 可在 http://localhost:8000 访问服务
 
+celery -A django_rest_framework worker # 开启消费者
+
+
 ```
     
 #### 说明
