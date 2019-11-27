@@ -230,6 +230,21 @@ END_POINT = ""  # OSS存储节点
 BUCKET_NAME = ""
 BUCKET_ACL_TYPE = ""  # private, public-read, public-read-write
 
+RABBITMQ_MANAGEMENT_URL = 'http://127.0.0.1:15672'
+RABBITMQ_MANAGEMENT_USERNAME = 'guest'
+RABBITMQ_MANAGEMENT_PASSWORD = 'guest'
+RABBITMQ_MANAGEMENT_VHOST = '/'
+
+CELERY_TIMEZONE = 'Asia/Shanghai'
+CELERY_BROKER_URL = 'amqp://guest:guest@127.0.0.1:5672/'
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'
+
+# celery beat
+
+# CELERY_ALWAYS_EAGER = True
+#
+BROKER_URL = 'redis://'
+
 
 try:
     from .local_settings import *

@@ -141,6 +141,8 @@ class EntryViewSet(viewsets.ModelViewSet):
 
     @detail_route(methods=['get'], url_name='message')
     def message(self, request, pk=None):
+        # from .tasks import rebuild_search_index
+        # rebuild_search_index.delay()
         self.serializer_class = MessageBoardSerializer
         serializer = self.get_serializer(MessageBoard.objects.filter(entry_id=pk).order_by('-id'), many=True)
         return Response(serializer.data)
@@ -162,10 +164,10 @@ class EntryViewSet(viewsets.ModelViewSet):
             body=request.data['body'],
             entry=entry
         ).save()
-        # 评论后发送邮件提醒 暂时取消需要加入celery
-        # from utils.utils import send_email
-        # email = entry.title + '\n下新增一条评论: \n ' +request.data['body']
-        # send_email('fangzicheng@fangzicheng.cn', email, entry.title)
+        # 评论后发送邮件提醒 暂时取消需要加入celeryggp
+        from .tasks import send_email
+        email = entry.title + '\n下新增一条评论: \n ' +request.data['body']
+        send_email.delay('fangzicheng@fangzicheng.cn', email, entry.title)
         return Response({'success': 'true'})
 
 class MessageBoardViewSet(viewsets.ModelViewSet):
