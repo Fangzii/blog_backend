@@ -28,10 +28,10 @@ def send_email(self, to, data, header):
 
     # 服务端配置，账密登陆
     try:
-         server = smtplib.SMTP(smtp_server, 25)
+         server = smtplib.SMTP(smtp_server, 15)
     except Exception as e:
          # 失败重释
-         raise self.retry(exc=e, countdown=10, max_retries= 5)
+         raise self.retry(exc=e, countdown=3, max_retries= 5)
 
     # 登陆服务器
     server.login(from_addr, password)
