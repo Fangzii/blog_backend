@@ -156,12 +156,16 @@ class EntryViewSet(viewsets.ModelViewSet):
                 mail=request.data['operator']['mail']
             )
             a.save()
-
+        entry = Entry.objects.get(id=pk)
         MessageBoard(
             operator=a,
             body=request.data['body'],
-            entry=Entry.objects.get(id=pk)
+            entry=entry
         ).save()
+        # 评论后发送邮件提醒
+        from utils.utils import send_email
+        email = entry.title + '\n下新增一条评论: \n ' +request.data['body']
+        send_email('fangzicheng@fangzicheng.cn', email, entry.title)
         return Response({'success': 'true'})
 
 class MessageBoardViewSet(viewsets.ModelViewSet):
