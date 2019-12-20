@@ -86,23 +86,23 @@ class History(models.Model):
         import requests
         # 淘宝IP地址库接口
         r = requests.get('http://ip.taobao.com/service/getIpInfo.php?ip=%s' % self.ip)
-        print('--------------------1')
-        print(r)
-        print('--------------------2')
-        print(r.json())
-        if r.json()['code'] == 0:
-            i = r.json()['data']
+        try:
+            if r.json()['code'] == 0:
+                i = r.json()['data']
 
-            self.country = i['country']  # 国家
-            self.area = i['area']  # 区域
-            self.region = i['region']  # 地区
-            self.city = i['city']  # 城市
-            self.isp = i['isp']  # 运营商
+                self.country = i['country']  # 国家
+                self.area = i['area']  # 区域
+                self.region = i['region']  # 地区
+                self.city = i['city']  # 城市
+                self.isp = i['isp']  # 运营商
 
-            self.location = u'国家: %s\n区域: %s\n省份: %s\n城市: %s\n运营商: %s\n' % (self.country, self.area, self.region, self.city, self.isp)
-            self.save();
-        else:
-            print("ERRO! ip: %s" % self.ip)
+                self.location = u'国家: %s\n区域: %s\n省份: %s\n城市: %s\n运营商: %s\n' % (self.country, self.area, self.region, self.city, self.isp)
+            else:
+                print("ERRO! ip: %s" % self.ip)
+        except Exception as e:
+            self.location = '查询错误...'
+
+        self.save();
 
 
 class Pond_IP(models.Model):
