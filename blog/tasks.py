@@ -10,7 +10,7 @@ def send_email(self, to, data, header):
 
     # 用户信息
     from_addr = 'fangzicheng@fangzicheng.cn'
-    password = 'CbbJVC7fxGDGP8Br' # # 腾讯QQ邮箱或腾讯企业邮箱必须使用授权码进行第三方登陆
+    password = 'VA73gz8jBErtBDpw' # # 腾讯QQ邮箱或腾讯企业邮箱必须使用授权码进行第三方登陆
     to_addr = to
     smtp_server = 'smtp.exmail.qq.com' # 腾讯服务器地址
 
